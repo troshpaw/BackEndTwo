@@ -1,0 +1,45 @@
+fetch('http://localhost:5000/users', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+fetch('http://localhost:5000/users', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json;charset=utf-8' },
+    body: JSON.stringify({ login: 'FirstUser', email: 'email@email.com', password: 'MyPass' })
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+
+
+***
+fetch('http://localhost:3001/users', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json;charset=utf-8' },
+    body: JSON.stringify({ login: 'Login', email: 'Email', password: 'Password' })
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+
+fetch('http://localhost:3001/auth/login', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json;charset=utf-8' },
+    body: JSON.stringify({ loginOrEmail: 'Login', password: 'Password' })
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+
+fetch('http://localhost:3001/feedbacks', {
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json;charset=utf-8',
+        'authorization': 'bearer token'
+    },
+    body: JSON.stringify({ loginOrEmail: 'login', password: 'password' })
+})
+.then(response => response.json())
+.then(json => console.log(json))
