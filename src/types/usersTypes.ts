@@ -1,30 +1,20 @@
 import {ObjectId} from "mongodb";
 
-export type CreateUserRequest = {
+export type GetUserWithParamsRequestType = {
+    id: string
+}
+
+export type CreatUserRequestType = {
     login: string,
     email: string,
     password: string
 }
 
-export type CreateUserModel = {
+export type UserType = {
     userName: string,
     email: string,
     passwordHash: string,
     createdAt: number
-}
-
-export type GetUserWithParamsRequest = {
-    id: string
-}
-
-
-
-export type UserDBType = {
-    _id: ObjectId,
-    userName: string,
-    email: string,
-    passwordHash: string,
-    createdAt: Date
 }
 
 export type UserViewModel = {
@@ -32,3 +22,11 @@ export type UserViewModel = {
     email: string,
     createdAt: string
 }
+
+// export type CreatedUserDBType = {
+//     _id: ObjectId,
+//     userName: string,
+//     email: string,
+//     passwordHash: string,
+//     createdAt: Date
+// }

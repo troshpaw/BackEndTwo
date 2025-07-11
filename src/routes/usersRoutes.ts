@@ -2,26 +2,31 @@ import {Request, Response, Router} from 'express';
 import {usersService} from "../domain/usersService";
 import {HTTP_STATUSES} from '../utils';
 import {RequestWithBody, RequestWithParams} from "../types/types";
-import {CreateUserRequest, GetUserWithParamsRequest} from "../types/usersTypes";
+import {CreatUserRequestType, GetUserWithParamsRequestType, UserViewModel} from "../types/usersTypes";
 
 export const usersRouter = Router({});
 
 usersRouter.get('/',
     async (req: Request, res: Response) => {
-        const allUsers = await usersService.findAllUsers();
+        const allUsers: UserViewModel[] = await usersService.findAllUsers();
         res.status(HTTP_STATUSES.OK_200).json(allUsers);
     }
 )
 
 usersRouter.get('/:id',
-    async (req: RequestWithParams<GetUserWithParamsRequest>, res: Response) => {
-        const user = await usersService.findUserByUserId(req.params.id);
+    async (req: RequestWithParams<GetUserWithParamsRequestType>, res: Response) => {
+        const user: UserViewModel | undefined = await usersService.findUserByUserId(req.params.id);
+
+        if (!user) {
+            res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
+        }
+
         res.status(HTTP_STATUSES.OK_200).json(user);
     }
 )
 
 usersRouter.post('/',
-    async (req: RequestWithBody<CreateUserRequest>, res: Response) => {
+    async (req: RequestWithBody<CreatUserRequestType>, res: Response) => {
         const result: boolean =
             await usersService.createUser(req.body.login, req.body.email, req.body.password);
 

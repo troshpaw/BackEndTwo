@@ -1,11 +1,12 @@
 import {client} from '../db/db';
 import {settings} from "../settings";
-import {ObjectId} from "mongodb";
-import {CreateUserModel, UserDBType, UserViewModel} from "../types/usersTypes";
+import {ObjectId, Collection} from "mongodb";
+import {UserType, UserViewModel} from "../types/usersTypes";
 
-const usersCollection = client.db(settings.DB_NAME).collection('users');
+const usersCollection
+    = client.db(settings.DB_NAME).collection<UserType>('users');
 
-const getUserViewModel = (dbUser: UserDBType): UserViewModel => {
+const getUserViewModel = (dbUser: UserType): UserViewModel => {
     return {
         userName: dbUser.userName,
         email: dbUser.email,
@@ -14,16 +15,22 @@ const getUserViewModel = (dbUser: UserDBType): UserViewModel => {
 }
 
 export const usersRepository = {
+    // async findAllUsers(): Promise<UserType[]> {
     async findAllUsers(): Promise<UserViewModel[]> {
-        const findUsers = await usersCollection.find({}).toArray();
+        const findUsers: UserType[] = await usersCollection.find({}).toArray();
+        // return findUsers;
         return (findUsers.map(getUserViewModel));
     },
 
-    async findUserByUserId(userId: string) {
-        return usersCollection.findOne({_id: new ObjectId(userId)});
+    async findUserByUserId(userId: string): Promise<UserViewModel | undefined> {
+        const findUser: UserType | null = await usersCollection.findOne({_id: new ObjectId(userId)});
+
+        if (!findUser) return undefined;
+
+        return getUserViewModel(findUser);
     },
 
-    async createUser(newUser: CreateUserModel) {
+    async createUser(newUser: UserType): Promise<boolean> {
         const result = await usersCollection.insertOne(newUser);
 
         if (!result.acknowledged) {

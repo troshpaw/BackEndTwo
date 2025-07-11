@@ -1,27 +1,27 @@
 import bcrypt from 'bcryptjs';
 import {usersRepository} from "../repositories/usersRepository";
-import {CreateUserModel} from "../types/usersTypes";
+import {UserType, UserViewModel} from "../types/usersTypes";
 
 export const usersService = {
-    async findAllUsers() {
+    async findAllUsers(): Promise<UserViewModel[]> {
         return usersRepository.findAllUsers();
     },
 
-    async findUserByUserId(userId: string) {
+    async findUserByUserId(userId: string): Promise<UserViewModel | undefined> {
         return usersRepository.findUserByUserId(userId);
     },
 
     async createUser(login: string, email: string, password: string) {
         const passwordHash = await this._generateHash(password);
 
-        const newUser: CreateUserModel = {
+        const newUser: UserType = {
             userName: login,
             email,
             passwordHash,
             createdAt: Date.now()
         }
 
-        return await usersRepository.createUser(newUser);
+        return usersRepository.createUser(newUser);
     },
 
     // async checkCredentials(loginOrEmail: string, password: string) {
