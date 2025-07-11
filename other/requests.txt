@@ -1,13 +1,11 @@
-******
-/users
-******
 fetch('http://localhost:5000/users', {
     method: 'GET'
 })
 .then(response => response.json())
 .then(json => console.log(json))
 
-fetch('http://localhost:5000/users', {
+
+fetch('http://localhost:5000/auth/signup', {
     method: 'POST',
     headers: { 'content-type': 'application/json;charset=utf-8' },
     body: JSON.stringify({ login: 'FirstUser', email: 'email@email.com', password: 'MyPass' })
@@ -15,13 +13,11 @@ fetch('http://localhost:5000/users', {
 .then(response => response.json())
 .then(json => console.log(json))
 
-******
-/auth
-******
-fetch('http://localhost:3001/auth/login', {
+
+fetch('http://localhost:5000/auth/login', {
     method: 'POST',
     headers: { 'content-type': 'application/json;charset=utf-8' },
-    body: JSON.stringify({ loginOrEmail: 'Login', password: 'Password' })
+    body: JSON.stringify({ loginOrEmail: 'SecondUser', password: 'MyPass' })
 })
 .then(response => response.json())
 .then(json => console.log(json))
