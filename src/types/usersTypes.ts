@@ -1,4 +1,4 @@
-// import {ObjectId} from "mongodb";
+import {ObjectId} from "mongodb";
 
 export type CreateUserRequest = {
     login: string,
@@ -17,10 +17,18 @@ export type GetUserWithParamsRequest = {
     id: string
 }
 
-// export type UserDBType = {
-//     _id: ObjectId,
-//     userName: string,
-//     email: string,
-//     passwordHash: string,
-//     createdAt: Date
-// }
+
+
+export type UserDBType = {
+    _id: ObjectId,
+    userName: string,
+    email: string,
+    passwordHash: string,
+    createdAt: Date
+}
+
+export type UserViewModel = {
+    userName: string,
+    email: string,
+    createdAt: string
+}

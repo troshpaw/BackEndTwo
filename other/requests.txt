@@ -1,3 +1,6 @@
+******
+/users
+******
 fetch('http://localhost:5000/users', {
     method: 'GET'
 })
@@ -12,18 +15,9 @@ fetch('http://localhost:5000/users', {
 .then(response => response.json())
 .then(json => console.log(json))
 
-
-
-***
-fetch('http://localhost:3001/users', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json;charset=utf-8' },
-    body: JSON.stringify({ login: 'Login', email: 'Email', password: 'Password' })
-})
-.then(response => response.json())
-.then(json => console.log(json))
-
-
+******
+/auth
+******
 fetch('http://localhost:3001/auth/login', {
     method: 'POST',
     headers: { 'content-type': 'application/json;charset=utf-8' },
