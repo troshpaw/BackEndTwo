@@ -1,9 +1,9 @@
-import { Request, Response, Router } from 'express';
-import { usersService } from "../domain/usersService";
-import { HTTP_STATUSES } from '../utils';
-import { RequestWithBody, RequestWithParams } from "../types/types";
-import { CreatUserRequestType, GetUserWithParamsRequestType } from "../types/usersTypes";
-import { jwtService } from '../application/jwtService';
+import {Request, Response, Router} from 'express';
+import {usersService} from "../domain/usersService";
+import {HTTP_STATUSES} from '../utils';
+import {RequestWithBody, RequestWithParams} from "../types/types";
+import {CreatUserRequestType, GetUserWithParamsRequestType} from "../types/usersTypes";
+import {jwtService} from '../application/jwtService';
 
 export const authRouter = Router({});
 
@@ -28,8 +28,8 @@ authRouter.post('/login',
         if (!loginedUser) {
             res.send(HTTP_STATUSES.UNAUTHORIZED_401);
         } else {
-            const token = await jwtService.createJWT(loginedUser);
-            res.status(HTTP_STATUSES.OK_200).json(token);
+            const tokenPair = await jwtService.createJWT(loginedUser);
+            res.status(HTTP_STATUSES.OK_200).json(tokenPair);
         }
     }
 )

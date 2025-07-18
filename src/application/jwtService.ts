@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
-import { settings } from "../settings";
+import {settings} from "../settings";
 
 export const jwtService = {
     async createJWT(user: any): Promise<any> {
-        const token = jwt.sign({ userId: user._id }, settings.JWT_SECRET, { expiresIn: "1h" });
-        return token;
+        const accessToken = jwt.sign({userId: user._id}, settings.JWT_SECRET, {expiresIn: "1m"});
+        const refreshToken = jwt.sign({userId: user._id}, settings.JWT_SECRET, {expiresIn: "10m"});
+        return {accessToken, refreshToken};
     },
 
     async getUserIdByToken(token: string) {
