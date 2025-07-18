@@ -23,7 +23,7 @@ fetch('http://localhost:5000/auth/login', {
 .then(json => console.log(json))
 
 
-fetch('http://localhost:3001/feedbacks', {
+fetch('http://localhost:5000/feedbacks', {
     method: 'POST',
     headers: {
         'content-type': 'application/json;charset=utf-8',

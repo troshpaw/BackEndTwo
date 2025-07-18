@@ -3,7 +3,7 @@ import {settings} from "../settings";
 
 export const jwtService = {
     async createJWT(user: any): Promise<any> {
-        const accessToken = jwt.sign({userId: user._id}, settings.JWT_SECRET, {expiresIn: "1m"});
+        const accessToken = jwt.sign({userId: user._id}, settings.JWT_SECRET, {expiresIn: "2m"});
         const refreshToken = jwt.sign({userId: user._id}, settings.JWT_SECRET, {expiresIn: "10m"});
         return {accessToken, refreshToken};
     },

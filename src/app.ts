@@ -1,7 +1,7 @@
 import express from 'express';
 import { usersRouter } from "./routes/usersRoutes";
 import { authRouter } from "./routes/authRoutes";
-// import {feedbackRouter} from "./routes/feedbacksRoutes";
+import {feedbacksRouter} from "./routes/feedbacksRoutes";
 
 export const app = express();
 
@@ -10,4 +10,4 @@ app.use(jsonBodyMiddleware);
 
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-// app.use('/feedbacks', feedbackRouter);
+app.use('/feedbacks', feedbacksRouter);
